@@ -16,6 +16,9 @@ function startPhase () {
         wireCount = game.askForNumber("# of wires? (3-6)", 1)
     }
 }
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+	
+})
 function InitSerial () {
     SerialNumber = game.askForNumber("Last Digit of Serial Number", 1)
 }
