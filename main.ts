@@ -17,7 +17,13 @@ function startPhase () {
     }
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+    if (wireCount == 3) {
+        _3wire()
+    } else if (wireCount == 4) {
+        _4wire()
+    } else {
+    	
+    }
 })
 function InitSerial () {
     SerialNumber = game.askForNumber("Last Digit of Serial Number", 1)
@@ -100,6 +106,28 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite2 = sprites.create(WireSprites[cursorPos], SpriteKind.Wire)
     mySprite2.top = Math.floor(120 / Ratio) * (cursorPos + 1)
 })
+function _4wire () {
+    redCount = 0
+    whiteCount = 0
+    for (let value of WireList) {
+        if (value == 0) {
+            redCount += 1
+        } else if (value == 1) {
+            whiteCount += 1
+        } else {
+        	
+        }
+    }
+    if (redCount > 1 && SerialNumber % 2 == 1) {
+        if (WireList[3] == 0) {
+            game.splash("Cut Wire 4")
+        } else if (WireList[2] == 0) {
+            game.splash("Cut Wire 3")
+        } else {
+            game.splash("Cut Wire 2")
+        }
+    }
+}
 sprites.onCreated(SpriteKind.Wire, function (sprite) {
     sprite.setFlag(SpriteFlag.Ghost, true)
 })
@@ -108,6 +136,11 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     cursorPos = cursorPos % wireCount
     UpdateCursor()
 })
+function _3wire () {
+	
+}
+let whiteCount = 0
+let redCount = 0
 let mySprite: Image = null
 let mySprite2: Sprite = null
 let sprite_list: Sprite[] = []
